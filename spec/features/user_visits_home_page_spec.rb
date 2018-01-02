@@ -20,9 +20,8 @@ feature "User visits the home page" do
   scenario "and sees a page with store information" do
     fill_in 'search', :with => '80202'
     click_on "Search"
-    
+
     expect(page).to have_content('17 Total Stores')
-    expect(page).to have_content('Cherry Creek Mall')
-    expect(page).to have_css(".store", count: 10)
+    expect(page).to have_css(".store", count: 17)
   end
 end
