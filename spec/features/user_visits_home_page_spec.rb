@@ -11,10 +11,17 @@ feature "User visits the home page" do
   end
 
   scenario "and searches for zip code" do
-    save_and_open_page
-    fill_in 'q', :with => '80202'
+    fill_in 'search', :with => '80202'
     click_on "Search"
 
     expect(current_path).to eq(search_path)
+  end
+
+  scenario "and sees a page with store information" do
+    fill_in 'search', :with => '80202'
+    click_on "Search"
+
+    expect(page).to have_content('17 Total Stores')
+    expect(page).to have_css(".store", count: 10)
   end
 end
