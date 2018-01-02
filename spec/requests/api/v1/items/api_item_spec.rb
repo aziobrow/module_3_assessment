@@ -20,8 +20,8 @@ describe "Items API" do
     expect(item).to have_key(:name)
     expect(item).to have_key(:description)
     expect(item).to have_key(:image_url)
-    expect(item).to have_key(:created_at)
-    expect(item).to have_key(:updated_at)
+    expect(item).to_not have_key(:created_at)
+    expect(item).to_not have_key(:updated_at)
   end
 
   it "sends a single item by id" do
@@ -50,19 +50,10 @@ describe "Items API" do
 
     expect(response).to be_success
 
-    get "/api/v1/items"
-    item_info = JSON.parse(response.body, symbolize_names: true)
-    new_item = item_info.last
+    new_item = Item.last
 
-    expect(item_info.count).to eq(4)
-    expect(new_item).to have_key(:id)
-    expect(new_item).to have_key(:name)
-    expect(new_item).to have_key(:description)
-    expect(new_item).to have_key(:image_url)
-    expect(new_item).to_not have_key(:created_at)
-    expect(new_item).to_not have_key(:updated_at)
-    expect(new_item).to have_value('NewItem')
-    expect(new_item).to have_value('newdeaddoves')
-    expect(new_item).to have_value('http://robohash.org/1.png?set=set2')
+    expect(new_item.name).to eq('NewItem')
+    expect(new_item.description).to eq('newdeaddoves')
+    expect(new_item.image_url).to eq('http://robohash.org/1.png?set=set2')
   end
 end
