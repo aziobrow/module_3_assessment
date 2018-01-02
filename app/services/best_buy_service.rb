@@ -10,14 +10,14 @@ attr_reader :conn, :zipcode
   end
 
   def get_store_info
-    get_json("v1/stores(area(#{zipcode},25))?format=json&show=storeType,name,city,distance,phone&apiKey=krmeujcx6hn477xn5gma4pmn#{ENV['API_KEY']}")
+    get_json("v1/stores(area(#{zipcode},25))?format=json&show=storeType,name,city,distance,phone&apiKey=#{ENV['API_KEY']}")[:stores]
   end
 
   private
-  def get_json(url)
-    response = conn.get(url)
-    JSON.parse(response.body, symbolize_names: true)
-  end
+      def get_json(url)
+        response = conn.get(url)
+        JSON.parse(response.body, symbolize_names: true)
+      end
 
 
 end
