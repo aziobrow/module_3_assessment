@@ -10,7 +10,7 @@ attr_reader :conn, :zipcode
   end
 
   def get_store_info
-    get_json("/v1/stores(postalCode=#{zipcode})?format=json&show=storeType,name,city,phone,distance&apiKey=#{ENV['API_KEY']}")
+    get_json("v1/stores(area(#{zipcode},25))?format=json&show=storeType,name,city,distance,phone&apiKey=krmeujcx6hn477xn5gma4pmn#{ENV['API_KEY']}")
   end
 
   private
