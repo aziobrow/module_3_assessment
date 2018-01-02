@@ -38,7 +38,31 @@ describe "Items API" do
     delete "/api/v1/items/#{item1.id}"
 
     expect(response.status).to eq(204)
-    response = JSON.parse(response.body, symbolize_names: true)
-    require "pry"; binding.pry
+
+    get "/api/v1/items"
+    item_info = JSON.parse(response.body, symbolize_names: true)
+
+    expect(item_info.first).to_not have_key(item1.id)
+  end
+
+  it "creates a single item" do
+    post "/api/v1/items?name=NewItem&description=newdeaddoves&image_url=http://robohash.org/1.png?set=set2&bgset=bg1&size=200x200"
+
+    expect(response).to be_success
+
+    get "/api/v1/items"
+    item_info = JSON.parse(response.body, symbolize_names: true)
+    new_item = item_info.last
+
+    expect(item_info.count).to eq(4)
+    expect(new_item).to have_key(:id)
+    expect(new_item).to have_key(:name)
+    expect(new_item).to have_key(:description)
+    expect(new_item).to have_key(:image_url)
+    expect(new_item).to_not have_key(:created_at)
+    expect(new_item).to_not have_key(:updated_at)
+    expect(new_item).to have_value('NewItem')
+    expect(new_item).to have_value('newdeaddoves')
+    expect(new_item).to have_value('http://robohash.org/1.png?set=set2')
   end
 end

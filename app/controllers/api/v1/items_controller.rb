@@ -8,5 +8,16 @@ class Api::V1::ItemsController < ApplicationController
   end
 
   def destroy
+    item = Item.find(params[:id])
+    item.destroy
+  end
+
+  def create
+    Item.create(item_params)
+  end
+
+private
+  def item_params
+    params.permit(:name, :description, :image_url)
   end
 end
