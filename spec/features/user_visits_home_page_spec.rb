@@ -22,6 +22,10 @@ feature "User visits the home page" do
     click_on "Search"
 
     expect(page).to have_content('17 Total Stores')
-    expect(page).to have_css(".store", count: 17)
+    expect(page).to have_css(".store", count: 10)
+    save_and_open_page
+
+    click_on '2'
+    expect(page).to have_css(".store", count: 7)
   end
 end
