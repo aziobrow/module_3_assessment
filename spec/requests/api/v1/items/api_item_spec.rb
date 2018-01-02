@@ -26,11 +26,19 @@ describe "Items API" do
 
   it "sends a single item by id" do
     get "/api/v1/items/#{item1.id}"
-    items = JSON.parse(response.body, symbolize_names: true)
-    item = items.first
+    item_info = JSON.parse(response.body, symbolize_names: true)
 
     expect(response).to be_success
-    expect(response.count).to eq(1)
-    expect(item['id']).to eq(item1.id)
+    expect(item_info[:id]).to eq(item1.id)
+    expect(item_info).to_not have_value(item2.id)
+    expect(item_info).to_not have_value(item3.id)
+  end
+
+  it "deletes a single item" do
+    delete "/api/v1/items/#{item1.id}"
+
+    expect(response.status).to eq(204)
+    response = JSON.parse(response.body, symbolize_names: true)
+    require "pry"; binding.pry
   end
 end
