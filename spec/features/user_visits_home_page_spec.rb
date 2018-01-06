@@ -9,23 +9,4 @@ feature "User visits the home page" do
   scenario "and views items." do
     expect(page).to have_css(".item", count: 3)
   end
-
-  scenario "and searches for zip code" do
-    fill_in 'search', :with => '80202'
-    click_on "Search"
-
-    expect(current_path).to eq(search_path)
-  end
-
-  scenario "and sees a page with store information" do
-    fill_in 'search', :with => '80202'
-    click_on "Search"
-
-    expect(page).to have_content('17 Total Stores')
-    expect(page).to have_css(".store", count: 10)
-    save_and_open_page
-
-    click_on '2'
-    expect(page).to have_css(".store", count: 7)
-  end
 end

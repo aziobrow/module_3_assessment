@@ -9,11 +9,4 @@ class Store
     @store_type = raw_store_info[:storeType]
   end
 
-  def self.nearest_stores(zipcode)
-    all_stores_raw_info = BestBuyService.new(zipcode).get_store_info
-    all_stores_raw_info.map do |one_store_info|
-      new(one_store_info)
-    end
-  end
-
 end

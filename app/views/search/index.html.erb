@@ -4,12 +4,12 @@
 <%= will_paginate @stores %>
 <%= @stores.each do |store| %>
   <div class="store">
-    <h3><%=  store.name %></h3>
+    <h3 class="name"><%=  store.name %></h3>
       <ul>
-      <li>Store Type: <%=  store.store_type %></li>
-      <li>City: <%=  store.city %></li>
-      <li>Distance: <%=  store.distance %> miles away</li>
-      <li>Phone Number: <%=  store.phone %></li>
+      <li class="store-type">Store Type: <%=  store.store_type %></li>
+      <li class="city">City: <%=  store.city %></li>
+      <li class="distance">Distance: <%=  store.distance %> miles away</li>
+      <li class="phone">Phone Number: <%=  store.phone %></li>
     </ul></br>
   </div>
 <% end %>
